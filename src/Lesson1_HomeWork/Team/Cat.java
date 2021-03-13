@@ -1,9 +1,12 @@
-package Lesson1_HomeWork;
+package Lesson1_HomeWork.Team;
 
-public class Cat implements Team {
-    private String name;
-    private double maxHeighJump;
-    private double maxDistance;
+import Lesson1_HomeWork.Skils.Jumpable;
+import Lesson1_HomeWork.Skils.Runable;
+
+public class Cat implements Team,  Runable, Jumpable {
+    private final String name;
+    private final double maxHeighJump;
+    private final double maxDistance;
 
     public Cat(String name, double maxHeighJump, double maxDistance) {
         this.name = name;
@@ -11,8 +14,15 @@ public class Cat implements Team {
         this.maxDistance = maxDistance;
     }
 
-    public void run(){
-        System.out.printf("Кот %s пробежал %n", name);
+    public boolean run (double distance){
+        if (distance<=maxDistance){
+            System.out.printf("Кот %s пробежал %s метров %n", name, distance);
+            return true;
+        } else {
+            System.out.printf("Кот %s не смог пробежать %s метров %n", name, distance);
+        }
+        return false;
+
     }
 
     public boolean jump(double height){

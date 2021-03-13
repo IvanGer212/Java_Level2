@@ -1,9 +1,12 @@
-package Lesson1_HomeWork;
+package Lesson1_HomeWork.Team;
 
-public class Robot implements Team{
-    private String name;
-    private double maxHeighJump;
-    private double maxDistance;
+import Lesson1_HomeWork.Skils.Jumpable;
+import Lesson1_HomeWork.Skils.Runable;
+
+public class Robot implements Team, Runable, Jumpable {
+    private final String name;
+    private final double maxHeighJump;
+    private final double maxDistance;
 
     public Robot(String name, double maxHeighJump, double maxDistance) {
         this.name = name;
@@ -11,8 +14,15 @@ public class Robot implements Team{
         this.maxDistance = maxDistance;
     }
 
-    public void run(){
-        System.out.printf("Робот %s пробежал %n",name);
+    public boolean run (double distance){
+        if (distance<=maxDistance){
+            System.out.printf("Робот %s пробежал %s метров %n", name, distance);
+            return true;
+        } else {
+            System.out.printf("Робот %s не смог пробежать %s метров %n", name, distance);
+        }
+        return false;
+
     }
 
     public boolean jump(double height){
