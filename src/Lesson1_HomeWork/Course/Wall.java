@@ -4,7 +4,7 @@ import Lesson1_HomeWork.Skils.Jumpable;
 import Lesson1_HomeWork.Team.Team;
 
 public class Wall implements Course{
-    private double heigh;
+    private final double heigh;
 
     public Wall(double heigh) {
         this.heigh = heigh;
@@ -13,7 +13,7 @@ public class Wall implements Course{
     @Override
     public boolean doIt (Team team){
         if (team instanceof Jumpable){
-            return team.jump(heigh);
+            return ((Jumpable)team).jump(heigh);
         }
         return false;
     }
