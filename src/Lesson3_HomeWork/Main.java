@@ -7,6 +7,12 @@ public class Main {
     public static void main(String[] args) {
         String[] words = {"money", "morning","apple", "rabbit", "go", "money", "door", "apple", "go", "apple", "door", "rabbit"};
         checkUniqueWords(words);
+        PhoneBook phoneBook1 = new PhoneBook();
+        phoneBook1.add("Smirnov", "+125487");
+        phoneBook1.add("Petrov", "+232643");
+        phoneBook1.add("Ivanov", "+125899723");
+        phoneBook1.add("Smirnov","+125788");
+        System.out.println(phoneBook1.get("Smirnov"));
 
 
         }
