@@ -10,14 +10,17 @@ public class PhoneBook {
     }
 
     public void add(String name, String number){
-        if (book.containsKey(name)){
-            book.get(name).add(number);
-        }
-        else {
-            Set<String> numbers = new HashSet<>();
-            numbers.add(number);
-            book.put(name,numbers);
-        }
+        //if (book.containsKey(name)){
+        //    book.get(name).add(number);
+        //}
+        //else {
+        //    Set<String> numbers = new HashSet<>();
+        //    numbers.add(number);
+        //    book.put(name,numbers);
+        //}
+        Set<String> numbers = book.getOrDefault(name, new HashSet<>());
+        numbers.add(number);
+        book.putIfAbsent(name,numbers);
 
     }
     public Set<String> get(String name){

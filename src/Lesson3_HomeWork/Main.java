@@ -12,7 +12,9 @@ public class Main {
         phoneBook1.add("Petrov", "+232643");
         phoneBook1.add("Ivanov", "+125899723");
         phoneBook1.add("Smirnov","+125788");
-        System.out.println(phoneBook1.get("Smirnov"));
+        System.out.println();
+        System.out.println(phoneBook1);
+        System.out.println("Smirnov: "+ phoneBook1.get("Smirnov"));
 
 
         }
