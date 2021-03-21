@@ -24,8 +24,7 @@ public class PhoneBook {
 
     }
     public Set<String> get(String name){
-        return book.get(name);
-
+        return book.getOrDefault(name,Collections.emptySet());
     }
 
     @Override
