@@ -1,9 +1,9 @@
 package Lesson4_HomeWork;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.math.*;
+import java.util.function.Supplier;
 
 
 public class Main {
@@ -22,11 +22,65 @@ public class Main {
                 для ввода сообщений и кнопка для отсылки сообщений на нижней панели. Сообщение должно отсылаться либо по нажатию кнопки на форме,
                 либо по нажатию кнопки Enter. При «отсылке» сообщение перекидывается из нижнего поля в центральное. (ОПЦИОНАЛЬНО)
         */
+
+        // Part 1
+        System.out.println("Part 1");
         List<Integer> numbers = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             numbers.add((int)(Math.random()*100));
         }
         numbers.forEach(num -> System.out.println(num));
+        System.out.println();
+
+        // Part 2
+        System.out.println("Part 2");
+        Set<String> words = new HashSet<>();
+        words.add("hello");
+        words.add("sun");
+        words.add("cat");
+        words.add("tank");
+        words.add("fire");
+
+        Consumer print = new Consumer() {
+            @Override
+            public void accept(Object o) {
+                System.out.println(o);
+            }
+        };
+
+        forItem(words,print);
+        System.out.println();
+
+        // Part 3
+        System.out.println("Part 3");
+        Supplier<Integer> multiplier = () -> {
+            int multi = 4;
+            System.out.println("Multi= " + multi);
+            return multi;
+            };
+        //      new Supplier<>() {
+          //  @Override
+          //  public Integer get() {
+          //      int multi = 4;
+          //      System.out.println("Multi= "+multi);
+          //      return multi;
+          //  }
+
+
+        System.out.println(doubleUp(15,multiplier));
+
+
+    }
+
+    static void forItem(Set<String> words,Consumer<String> print){
+        words.forEach(word-> print.accept(word));
+    }
+
+    static double doubleUp (int number, Supplier<Integer> multiplier){
+        double result;
+        result = number*multiplier.get();
+        return result;
+
     }
 
 }
