@@ -5,6 +5,8 @@ import java.util.function.Consumer;
 import java.math.*;
 import java.util.function.Supplier;
 
+import static java.util.Optional.empty;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -58,16 +60,14 @@ public class Main {
             System.out.println("Multi= " + multi);
             return multi;
             };
-        //      new Supplier<>() {
-          //  @Override
-          //  public Integer get() {
-          //      int multi = 4;
-          //      System.out.println("Multi= "+multi);
-          //      return multi;
-          //  }
-
 
         System.out.println(doubleUp(15,multiplier));
+        System.out.println();
+
+        // Part 4
+        System.out.println("Part 4");
+        System.out.println(findAllChars("Fdfgfjf",'f').get());
+
 
 
     }
@@ -77,10 +77,21 @@ public class Main {
     }
 
     static double doubleUp (int number, Supplier<Integer> multiplier){
-        double result;
-        result = number*multiplier.get();
-        return result;
-
+        return number*multiplier.get();
     }
 
+    static Optional<String> findAllChars (String target, char toFind){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i <target.length(); i++) {
+            if (target.charAt(i) == toFind) {
+                stringBuilder.append(toFind);
+            }
+        }
+        if (stringBuilder.length() > 0){
+        return Optional.of(stringBuilder.toString());
+        } else
+        {
+          return Optional.empty();
+        }
+    }
 }
