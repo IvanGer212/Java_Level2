@@ -55,19 +55,16 @@ public class Main {
         System.out.println("Part 3");
         Supplier<Integer> multiplier = () -> {
             int multi = 4;
-            System.out.println("Multi= " + multi);
+            System.out.println("Multi = " + multi);
             return multi;
             };
-        //      new Supplier<>() {
-          //  @Override
-          //  public Integer get() {
-          //      int multi = 4;
-          //      System.out.println("Multi= "+multi);
-          //      return multi;
-          //  }
 
+        System.out.println("Result = " +doubleUp(15,multiplier));
+        System.out.println();
 
-        System.out.println(doubleUp(15,multiplier));
+        //Part 4
+        System.out.println("Part 4");
+        System.out.println(findAllChars("cghjdckhcch",'c').get());
 
 
     }
@@ -81,6 +78,22 @@ public class Main {
         result = number*multiplier.get();
         return result;
 
+    }
+
+    static Optional<String> findAllChars(String target, char toFind){
+        Optional<String> result;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i <target.length() ; i++) {
+            if (target.charAt(i)==toFind){
+                stringBuilder = stringBuilder.append(toFind);
+            }
+        }
+        if (stringBuilder.toString().length()>0){
+            return Optional.of(stringBuilder.toString());
+        }
+        else {
+            return Optional.empty();
+        }
     }
 
 }
