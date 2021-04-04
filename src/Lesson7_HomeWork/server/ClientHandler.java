@@ -25,8 +25,10 @@ public class ClientHandler {
             throw new ChatServerException("Something went wrong during client establishing",e);
         }
 
+        new Thread(()->{
         doAuthentication(server);
-        listen();
+        listen();})
+                .start();
 
     }
 
@@ -35,6 +37,7 @@ public class ClientHandler {
     }
 
     private void doAuthentication(Server server){
+        sendMessage("Welcome! Please do authentication.");
         while (true){
             try {
 
@@ -63,6 +66,9 @@ public class ClientHandler {
                     else {
                         sendMessage("Incorrect login or password");
                     }
+                }
+                else {
+                    sendMessage("Authentication incorrect. \nPlease use valid command (-auth your_login your_password)");
                 }
             } catch (IOException e) {
                 throw new ChatServerException("Something went wrong during client authentication",e);

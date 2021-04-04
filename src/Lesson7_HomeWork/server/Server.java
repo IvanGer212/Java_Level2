@@ -16,9 +16,12 @@ public class Server {
             loggedClient = new HashSet<>();
             ServerSocket socket = new ServerSocket(8080);
             System.out.println("Server is ready...");
-            System.out.println("Waiting connection...");
-            Socket clientSocked = socket.accept();
-            System.out.println("Connection success "+clientSocked);
+            while (true) {
+                System.out.println("Waiting connection...");
+                Socket clientSocked = socket.accept();
+                System.out.println("Connection success " + clientSocked);
+                new ClientHandler(clientSocked, this);
+            }
         } catch (IOException e) {
             throw new ChatServerException("Something went wrong", e);
         }
