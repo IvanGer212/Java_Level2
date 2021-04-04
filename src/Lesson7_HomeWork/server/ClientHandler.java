@@ -10,6 +10,7 @@ public class ClientHandler {
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
+    private Server server;
     String name;
 
     public String getName() {
@@ -18,6 +19,7 @@ public class ClientHandler {
 
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
+        this.server = server;
         try {
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
@@ -26,7 +28,7 @@ public class ClientHandler {
         }
 
         new Thread(()->{
-        doAuthentication(server);
+        doAuthentication();
         listen();})
                 .start();
 
@@ -36,7 +38,7 @@ public class ClientHandler {
             receivedMessage();
     }
 
-    private void doAuthentication(Server server){
+    private void doAuthentication(){
         sendMessage("Welcome! Please do authentication.");
         while (true){
             try {
@@ -81,7 +83,7 @@ public class ClientHandler {
         while (true){
             try {
                 String msg = in.readUTF();
-                System.out.println(msg);
+                server.broadcast(String.format("User %s: %s",name,msg));
             } catch (IOException e) {
                 throw new ChatServerException("Something went wrong during receiving a message.",e);
             }
