@@ -1,4 +1,4 @@
-package Lesson7_HomeWork;
+package Lesson7_HomeWork.server;
 
 import java.util.HashSet;
 import java.util.Iterator;

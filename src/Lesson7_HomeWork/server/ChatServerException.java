@@ -1,4 +1,4 @@
-package Lesson7_HomeWork;
+package Lesson7_HomeWork.server;
 
 public class ChatServerException extends RuntimeException {
     public ChatServerException(String message) {

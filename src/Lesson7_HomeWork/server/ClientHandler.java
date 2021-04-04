@@ -1,4 +1,4 @@
-package Lesson7_HomeWork;
+package Lesson7_HomeWork.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -26,7 +26,12 @@ public class ClientHandler {
         }
 
         doAuthentication(server);
+        listen();
 
+    }
+
+    public void listen(){
+            receivedMessage();
     }
 
     private void doAuthentication(Server server){
@@ -67,6 +72,14 @@ public class ClientHandler {
     }
 
     public void receivedMessage(){
+        while (true){
+            try {
+                String msg = in.readUTF();
+                System.out.println(msg);
+            } catch (IOException e) {
+                throw new ChatServerException("Something went wrong during receiving a message.",e);
+            }
+        }
 
     }
     public void sendMessage(String msg){

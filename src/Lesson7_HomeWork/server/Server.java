@@ -1,10 +1,9 @@
-package Lesson7_HomeWork;
+package Lesson7_HomeWork.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class Server {
@@ -16,7 +15,10 @@ public class Server {
             authenticationService = new AuthenticationService();
             loggedClient = new HashSet<>();
             ServerSocket socket = new ServerSocket(8080);
+            System.out.println("Server is ready...");
+            System.out.println("Waiting connection...");
             Socket clientSocked = socket.accept();
+            System.out.println("Connection success "+clientSocked);
         } catch (IOException e) {
             throw new ChatServerException("Something went wrong", e);
         }
