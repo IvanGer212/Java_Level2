@@ -5,8 +5,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Optional;
+import java.util.TimerTask;
+import java.util.Timer;
+
+
 
 public class ClientHandler {
+    private static final long TIMEOUT_TIMER = 25000;
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
@@ -26,6 +31,18 @@ public class ClientHandler {
         } catch (IOException e) {
             throw new ChatServerException("Something went wrong during client establishing",e);
         }
+
+        TimerTask timeout = new TimerTask() {
+            @Override
+            public void run() {
+                if(!server.isLoggedIn(name)){
+                    sendMessage("Timeout authentication. Please try to connect later.");
+                    closeConnection(true);
+                }
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(timeout, TIMEOUT_TIMER);
 
         new Thread(()->{
         doAuthentication();
@@ -109,4 +126,27 @@ public class ClientHandler {
         }
 
     }
+
+    public void closeConnection(boolean timeout) {
+        server.unsubscribe(this);
+        if(!timeout){
+            server.broadcast(name + " вышел из чата");
+        }
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

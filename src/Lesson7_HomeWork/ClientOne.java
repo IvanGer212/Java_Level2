@@ -1,12 +1,11 @@
 package Lesson7_HomeWork;
 
-import Lesson7_HomeWork.client.ChatClient;
 
-
+import Lesson7_HomeWork.client.ChatStarter;
 
 public class ClientOne {
     public static void main(String[] args) {
-        new ChatClient();
+        ChatStarter.run("localhost", 8080);
 
     }
 
