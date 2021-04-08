@@ -83,7 +83,18 @@ public class ClientHandler {
         while (true){
             try {
                 String msg = in.readUTF();
+                if (msg.startsWith("/w")){
+                    StringBuilder concatMsg = new StringBuilder();
+                    String[] privatMsg = msg.split("\\s");
+                    String destinationName = privatMsg[1];
+                    for (int i = 2; i < privatMsg.length; i++) {
+                        concatMsg.append(privatMsg[i]+" ");
+                    }
+                    server.privatSendMessage(String.format("[priv] User %s: %s",name,concatMsg.toString()),destinationName,this.name);
+                }
+                else {
                 server.broadcast(String.format("User %s: %s",name,msg));
+                }
             } catch (IOException e) {
                 throw new ChatServerException("Something went wrong during receiving a message.",e);
             }

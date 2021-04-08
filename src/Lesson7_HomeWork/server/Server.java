@@ -48,6 +48,23 @@ public class Server {
 
     }
 
+    public void privatSendMessage(String msg, String name,String nameClient){
+        int count=0;
+        for (ClientHandler clientHandler: loggedClient) {
+            if (clientHandler.getName().equals(name)){
+                clientHandler.sendMessage(msg);
+                count++;
+            }
+        }
+        if (count==0) {
+            for (ClientHandler clientHandler: loggedClient) {
+                if (clientHandler.getName().equals(nameClient)){
+                   clientHandler.sendMessage("Client with this name not logged or absent");
+                }
+            }
+        }
+    }
+
     public boolean isLoggedIn(String name){
        return loggedClient.stream()
                     .filter(client->client.getName().equals(name))
