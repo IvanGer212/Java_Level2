@@ -1,5 +1,7 @@
 package Lesson7_HomeWork.server;
 
+import Lesson7_HomeWork.DB.Users_Repository;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.util.Timer;
 
 
 public class ClientHandler {
-    private static final long TIMEOUT_TIMER = 25000;
+    private static final long TIMEOUT_TIMER = 100000;
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
@@ -109,6 +111,15 @@ public class ClientHandler {
                     }
                     server.privatSendMessage(String.format("[priv] User %s: %s",name,concatMsg.toString()),destinationName,this.name);
                 }
+                /**else if (msg.startsWith("-ChangeName")){
+                    // Command : -ChangeName Name1 to Name2
+                    StringBuilder concatMsg = new StringBuilder();
+                    String[] changeNameCommand = msg.split("\\s");
+                    String oldName = changeNameCommand[1];
+                    String newName = changeNameCommand[3];
+                    Users_Repository users_repository = new Users_Repository();
+                    users_repository.update(server.);
+                }*/
                 else {
                 server.broadcast(String.format("User %s: %s",name,msg));
                 }

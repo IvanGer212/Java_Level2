@@ -1,5 +1,7 @@
 package Lesson7_HomeWork.server;
 
+import Lesson7_HomeWork.DB.Users_Repository;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -65,6 +67,15 @@ public class Server {
         }
     }
 
+    /**public void changeClienName (String name) {
+        Users_Repository users_repository = new Users_Repository();
+        for (ClientHandler clientHandler : loggedClient) {
+            if (clientHandler.getName().equals(name)) {
+                users_repository.update(authenticationService.get());
+            }
+        }
+    }
+     */
     public boolean isLoggedIn(String name){
        return loggedClient.stream()
                     .filter(client->client.getName().equals(name))
