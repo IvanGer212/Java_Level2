@@ -67,15 +67,18 @@ public class Server {
         }
     }
 
-    /**public void changeClienName (String name) {
+    public void changeClienName (String name, String newName) {
         Users_Repository users_repository = new Users_Repository();
         for (ClientHandler clientHandler : loggedClient) {
             if (clientHandler.getName().equals(name)) {
-                users_repository.update(authenticationService.get());
+                AuthenticationService.Entry client = authenticationService.getEntryByChangeName(name);
+                client.setName(newName);
+                users_repository.update(client);
+
             }
         }
     }
-     */
+
     public boolean isLoggedIn(String name){
        return loggedClient.stream()
                     .filter(client->client.getName().equals(name))

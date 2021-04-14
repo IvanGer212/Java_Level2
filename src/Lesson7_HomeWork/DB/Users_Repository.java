@@ -33,13 +33,13 @@ public class Users_Repository {
         Connection connection = DBConection.getConnection();
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM chat_users WHERE Name = "+name);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM chat_users WHERE id = 1"); //+this.findAll().stream().filter(entry -> entry.getName().equals(name)).findFirst().get().getId());
             if (resultSet.next()){
-                return Optional.of(new AuthenticationService.Entry(
+               return Optional.of(new AuthenticationService.Entry(
                         resultSet.getString("Name"),
                         resultSet.getString("Login"),
-                        resultSet.getString("Password")
-                ));
+                        resultSet.getString("Password")));
+
             }
             else return Optional.empty();
         } catch (SQLException throwables) {
@@ -52,9 +52,9 @@ public class Users_Repository {
         Connection connection = DBConection.getConnection();
         try {
             connection.setAutoCommit(false);
-            PreparedStatement statement = connection.prepareStatement("UPDATE chat_user SET Name = ? WHERE Login = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE chat_users SET Name = ? WHERE id = ?");
             statement.setString(1, entry.getName());
-            statement.setString(2, entry.getLogin());
+            statement.setInt(2, entry.getId());
             boolean result = statement.execute();
             connection.commit();
             return result;

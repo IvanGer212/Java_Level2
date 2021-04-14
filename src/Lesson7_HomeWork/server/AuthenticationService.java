@@ -40,21 +40,27 @@ public class AuthenticationService {
         */
     }
 
-    /**public Entry getEntryByChangeName(String name){
+    public Entry getEntryByChangeName(String name) {
         Users_Repository users_repository = new Users_Repository();
         Optional<AuthenticationService.Entry> entryForChangeName = users_repository.findEntryForChangeName(name);
-        return entryForChangeName.;
-    */
+        return entryForChangeName.get();
+    }
+
 
     public static class Entry {
         private String name;
         private String login;
         private String password;
+        private int id;
 
         public Entry(String name, String login, String password) {
             this.name = name;
             this.login = login;
             this.password = password;
+        }
+
+        public int getId() {
+            return id;
         }
 
         public String getName() {
@@ -67,6 +73,19 @@ public class AuthenticationService {
 
         public String getPassword() {
             return password;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "Entry{" +
+                    "name='" + name + '\'' +
+                    ", login='" + login + '\'' +
+                    ", password='" + password + '\'' +
+                    '}';
         }
     }
 }

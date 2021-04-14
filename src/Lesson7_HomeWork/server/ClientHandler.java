@@ -111,15 +111,13 @@ public class ClientHandler {
                     }
                     server.privatSendMessage(String.format("[priv] User %s: %s",name,concatMsg.toString()),destinationName,this.name);
                 }
-                /**else if (msg.startsWith("-ChangeName")){
+                else if (msg.startsWith("-ChangeName")){
                     // Command : -ChangeName Name1 to Name2
-                    StringBuilder concatMsg = new StringBuilder();
                     String[] changeNameCommand = msg.split("\\s");
                     String oldName = changeNameCommand[1];
                     String newName = changeNameCommand[3];
-                    Users_Repository users_repository = new Users_Repository();
-                    users_repository.update(server.);
-                }*/
+                    server.changeClienName(oldName, newName);
+                }
                 else {
                 server.broadcast(String.format("User %s: %s",name,msg));
                 }
