@@ -1,6 +1,7 @@
 package Lesson7_HomeWork.server;
 
 import Lesson7_HomeWork.DB.Users_Repository;
+import Lesson7_HomeWork.client.History.History;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -19,6 +20,7 @@ public class ClientHandler {
     private DataOutputStream out;
     private Server server;
     String name;
+    private final History history = new History();
 
     public String getName() {
         return name;
@@ -116,7 +118,9 @@ public class ClientHandler {
                     String[] changeNameCommand = msg.split("\\s");
                     String oldName = changeNameCommand[1];
                     String newName = changeNameCommand[3];
-                    server.changeClienName(oldName, newName);
+                    if (!server.changeClientName(oldName, newName)){
+                        this.sendMessage(String.format("User with name %s not find",oldName));
+                    }
                 }
                 else {
                 server.broadcast(String.format("User %s: %s",name,msg));
@@ -125,7 +129,6 @@ public class ClientHandler {
                 throw new ChatServerException("Something went wrong during receiving a message.",e);
             }
         }
-
     }
     public void sendMessage(String msg){
         try {
@@ -143,19 +146,15 @@ public class ClientHandler {
         }
         try {
             in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void writeHistory(String msg){
+        history.doFileWriter(msg);
     }
 
 }

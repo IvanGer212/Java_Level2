@@ -40,13 +40,6 @@ public class AuthenticationService {
         */
     }
 
-    public Entry getEntryByChangeName(String name) {
-        Users_Repository users_repository = new Users_Repository();
-        Optional<AuthenticationService.Entry> entryForChangeName = users_repository.findEntryForChangeName(name);
-        return entryForChangeName.get();
-    }
-
-
     public static class Entry {
         private String name;
         private String login;

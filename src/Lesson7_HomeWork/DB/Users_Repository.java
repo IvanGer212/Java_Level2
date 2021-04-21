@@ -33,7 +33,8 @@ public class Users_Repository {
         Connection connection = DBConection.getConnection();
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM chat_users WHERE id = 1"); //+this.findAll().stream().filter(entry -> entry.getName().equals(name)).findFirst().get().getId());
+            String name2 = this.findAll().stream().filter(entry -> entry.getName().equals(name)).findFirst().get().getName();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM chat_users WHERE Name ='"+name2+"'");
             if (resultSet.next()){
                return Optional.of(new AuthenticationService.Entry(
                         resultSet.getString("Name"),
@@ -52,9 +53,9 @@ public class Users_Repository {
         Connection connection = DBConection.getConnection();
         try {
             connection.setAutoCommit(false);
-            PreparedStatement statement = connection.prepareStatement("UPDATE chat_users SET Name = ? WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE chat_users SET Name = ? WHERE Login = ?");
             statement.setString(1, entry.getName());
-            statement.setInt(2, entry.getId());
+            statement.setString(2, entry.getLogin());
             boolean result = statement.execute();
             connection.commit();
             return result;

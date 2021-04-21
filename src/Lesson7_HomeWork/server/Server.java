@@ -1,16 +1,19 @@
 package Lesson7_HomeWork.server;
 
 import Lesson7_HomeWork.DB.Users_Repository;
+import Lesson7_HomeWork.client.History.History;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class Server {
     private final AuthenticationService authenticationService;
     private final Set<ClientHandler> loggedClient;
+
 
     public Server() {
         try {
@@ -45,6 +48,7 @@ public class Server {
     public void broadcast(String msg){
         for (ClientHandler clientHandler: loggedClient) {
             clientHandler.sendMessage(msg);
+            clientHandler.writeHistory(msg);
 
         }
 
@@ -55,6 +59,7 @@ public class Server {
         for (ClientHandler clientHandler: loggedClient) {
             if (clientHandler.getName().equals(name)){
                 clientHandler.sendMessage(msg);
+                clientHandler.writeHistory(msg);
                 count++;
             }
         }
@@ -67,16 +72,18 @@ public class Server {
         }
     }
 
-    public void changeClienName (String name, String newName) {
+    public boolean changeClientName (String name, String newName) {
         Users_Repository users_repository = new Users_Repository();
         for (ClientHandler clientHandler : loggedClient) {
             if (clientHandler.getName().equals(name)) {
-                AuthenticationService.Entry client = authenticationService.getEntryByChangeName(name);
-                client.setName(newName);
+                Optional<AuthenticationService.Entry> entryForChangeName = users_repository.findEntryForChangeName(name);
+                AuthenticationService.Entry client = entryForChangeName.get();
+                entryForChangeName.get().setName(newName);
                 users_repository.update(client);
-
+                return true;
+                }
             }
-        }
+            return false;
     }
 
     public boolean isLoggedIn(String name){
@@ -93,4 +100,5 @@ public class Server {
         return false;
     */
     }
+
 }
