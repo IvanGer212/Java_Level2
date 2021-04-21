@@ -21,12 +21,13 @@ public class AuthenticationService {
 
 
 
-    public Optional<Entry> getEntryByCredentials(String login, String password){
-       Users_Repository users_repository = new Users_Repository();
-       entries = users_repository.findAll();
-       return entries.stream()
-               .filter(entry -> entry.getLogin().equals(login)&&entry.getPassword().equals(password))
-               .findFirst();
+    //public Optional<Entry> getEntryByCredentials(String login, String password){
+    //   Users_Repository users_repository = new Users_Repository();
+    //   entries = users_repository.findAll();
+    //   return entries.stream()
+    //           .filter(entry -> entry.getLogin().equals(login)&&entry.getPassword().equals(password))
+    //           .findFirst();
+
 
 
         /**Iterator<Entry> iterator = entries.iterator();
@@ -38,6 +39,10 @@ public class AuthenticationService {
         }
         return Optional.empty();
         */
+    //}
+    public Optional<Entry> getEntryByCredentials(String login, String password){
+      Users_Repository users_repository = new Users_Repository();
+      return users_repository.findEntryForAuthentication(login, password);
     }
 
     public static class Entry {
@@ -46,10 +51,11 @@ public class AuthenticationService {
         private String password;
         private int id;
 
-        public Entry(String name, String login, String password) {
+        public Entry(int id, String name, String login, String password) {
             this.name = name;
             this.login = login;
             this.password = password;
+            this.id = id;
         }
 
         public int getId() {

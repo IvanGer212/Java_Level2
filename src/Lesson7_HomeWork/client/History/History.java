@@ -17,8 +17,8 @@ public class History {
         }
     }
 
-    public void doFileWriter(String msg) {
-        File file = new File("C:\\Users\\admin\\IdeaProjects\\Java_Level2\\src\\Lesson7_HomeWork\\client\\History\\ChatHistory.txt");
+    public void doFileWriter(String msg, int numOfClient) {
+        File file = new File(String.format("C:\\Users\\admin\\IdeaProjects\\Java_Level2\\src\\Lesson7_HomeWork\\Client%s\\ChatHistory%s.txt",numOfClient,numOfClient));
         try (FileWriter fw = new FileWriter(file, true)) {
             fw.append(msg);
             fw.append("\n");

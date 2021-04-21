@@ -1,4 +1,4 @@
-package Lesson7_HomeWork.server;
+package Lesson7_HomeWork.Client2;
 
 import Lesson7_HomeWork.client.ChatStarter;
 

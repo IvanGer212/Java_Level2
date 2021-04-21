@@ -154,7 +154,7 @@ public class ClientHandler {
     }
 
     public void writeHistory(String msg){
-        history.doFileWriter(msg);
+        history.doFileWriter(msg,1);
     }
 
 }
