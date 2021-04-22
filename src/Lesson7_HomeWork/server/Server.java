@@ -76,7 +76,7 @@ public class Server {
         Users_Repository users_repository = new Users_Repository();
         for (ClientHandler clientHandler : loggedClient) {
             if (clientHandler.getName().equals(name)) {
-                Optional<AuthenticationService.Entry> entryForChangeName = users_repository.findEntryForChangeName(name);
+                Optional<AuthenticationService.Entry> entryForChangeName = users_repository.findEntryFromName(name);
                 AuthenticationService.Entry client = entryForChangeName.get();
                 entryForChangeName.get().setName(newName);
                 users_repository.update(client);

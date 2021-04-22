@@ -1,8 +1,4 @@
-
-User[User3] entered the chat
 User User3: Hello guys!
-User Tom: Hello, Bob!
-User[User3] entered the chat
 User User3: Hello world! 
 User User3: My name is John
 User Bob: Hello, John!

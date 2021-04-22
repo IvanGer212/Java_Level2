@@ -5,6 +5,7 @@ import Lesson7_HomeWork.client.History.History;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Optional;
@@ -81,6 +82,9 @@ public class ClientHandler {
                             name = credentials.getName();
                             server.broadcast(String.format("User[%s] entered the chat", name));
                             server.subscribe(this);
+                            int id = credentials.getId();
+                            sendMessage(history.readLastNLines(new File("C:\\Users\\admin\\IdeaProjects\\Java_Level2\\src\\Lesson7_HomeWork\\Client1\\ChatHistory1.txt")));
+
                             break;
                         } else{
                             sendMessage(String.format("User with name %s is already logged",credentials.getName()));
@@ -154,7 +158,12 @@ public class ClientHandler {
     }
 
     public void writeHistory(String msg){
-        history.doFileWriter(msg,1);
+        Users_Repository users_repository = new Users_Repository();
+        Optional<AuthenticationService.Entry> entryFromName = users_repository.findEntryFromName(this.getName());
+        history.doFileWriter(msg,entryFromName.get().getId());
     }
 
+    public void readHistory(String msg){
+        sendMessage(msg);
+    }
 }

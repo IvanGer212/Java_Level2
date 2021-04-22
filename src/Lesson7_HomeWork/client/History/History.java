@@ -1,21 +1,8 @@
 package Lesson7_HomeWork.client.History;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class History {
-    public void doFileOutputStream(String message) {
-        File file = new File("C:\\Users\\admin\\IdeaProjects\\Java_Level2\\src\\Lesson7_HomeWork\\client\\History\\ChatHistory.txt");
-
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            fos.write(message.getBytes());
-            fos.write("\n".getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void doFileWriter(String msg, int numOfClient) {
         File file = new File(String.format("C:\\Users\\admin\\IdeaProjects\\Java_Level2\\src\\Lesson7_HomeWork\\Client%s\\ChatHistory%s.txt",numOfClient,numOfClient));
@@ -27,5 +14,32 @@ public class History {
         }
     }
 
+    public String readLastNLines(File file) {
+        int readLines = 0;
+        StringBuilder sb = new StringBuilder();
 
+        try {
+            RandomAccessFile raf = new RandomAccessFile(file, "r");
+            long fileLength = file.length() - 1;
+            raf.seek(fileLength);
+
+            for (long ptr = fileLength; ptr >= 0 ; ptr--) {
+                raf.seek(ptr);
+                char ch = (char) raf.readByte();
+                if (ch == '\n') {
+                    readLines++;
+                    if (readLines == 100) {
+                        break;
+                    }
+                }
+                sb.append(ch);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        sb.reverse();
+        return sb.toString();
+
+    }
 }
