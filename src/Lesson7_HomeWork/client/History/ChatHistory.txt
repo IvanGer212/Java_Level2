@@ -1,0 +1,8 @@
+User Bob: How are you?
+User Bob: Hello!
+User Bob: How are you?
+User Bob: I`m fine, thanks!
+User[Tom] entered the chat
+User Tom: Hello!
+User Tom: Hello!
+User Bob: vnjdk

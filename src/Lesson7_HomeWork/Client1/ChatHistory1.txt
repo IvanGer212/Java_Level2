@@ -1,0 +1,14 @@
+User[Tom] entered the chat
+User[User3] entered the chat
+User User3: Hello guys!
+[priv] User Tom: Hello! 
+User Bob: Hello!
+User Bob: Hi brother!
+User[Tom] entered the chat
+User Tom: Hello, Bob!
+User[User3] entered the chat
+User User3: Hello world! 
+User User3: My name is John
+User Bob: Hello, John!
+User Bob: How are you?
+User Bob: Hello 
